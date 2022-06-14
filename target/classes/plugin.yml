@@ -1,0 +1,8 @@
+name: AutoAvatar Bungee
+description: Connects multiple servers having AutoAvatar
+author: TEXAPlayer
+main: me.TEXAPlayer.AutoAvatar.Main
+version: 0.1.0
+url: https://github.com/xnusef/AutoAvatar-Bungee
+api-version: 1.18
+depend: []
