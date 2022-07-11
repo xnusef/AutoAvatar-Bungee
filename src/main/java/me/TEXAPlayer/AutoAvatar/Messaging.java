@@ -18,7 +18,6 @@ public class Messaging
     public void SendMessage(ProxiedPlayer player, String channel)
     {
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
-        out.writeUTF(player.getDisplayName());
         player.getServer().getInfo().sendData(channel, out.toByteArray());
     }
 

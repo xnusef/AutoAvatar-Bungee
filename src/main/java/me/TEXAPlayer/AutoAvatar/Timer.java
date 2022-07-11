@@ -31,7 +31,6 @@ public class Timer
                     ProxiedPlayer chosenPlayer = methods.GetRandomPlayer(playersInAllowedServers);
                     if (chosenPlayer != null)
                         main.messaging.SendMessage(chosenPlayer, "autoavatar:newavatar");
-                        //main.server.getLogger().info(chosenPlayer.getName());
                 }
             }
         };

@@ -42,7 +42,7 @@ public class Methods
         List<ProxiedPlayer> playersToRandomize = new ArrayList<ProxiedPlayer>();
         for (ProxiedPlayer player : allowedPlayers)
         {
-            if (player.hasPermission("avatar.choosable") && HasPermissionStartingWith(player, "avatar.weight."))
+            if (HasPermission(player,"avatar.choosable") && HasPermissionStartingWith(player, "avatar.weight."))
             {
                 String number = GetPermissionStartingWith(player, "avatar.weight.").replace("avatar.weight.", "");
                 for (int i = 1 ; i <= Integer.parseInt(number); i++)
@@ -59,7 +59,7 @@ public class Methods
         CachedPermissionData permissionData = user.getCachedData().getPermissionData();
         List<String> list = GetListFromMap(permissionData.getPermissionMap());
 
-        for(String permission : list) // no entra al for
+        for(String permission : list)
             if(permission.startsWith(match))
                 return true;
         return false;
@@ -76,6 +76,19 @@ public class Methods
             if(permission.startsWith(match))
                 return permission;
         return null;
+    }
+
+    private Boolean HasPermission(ProxiedPlayer player, String match)
+    {
+        LuckPerms luckPerms = LuckPermsProvider.get();
+        User user = luckPerms.getPlayerAdapter(ProxiedPlayer.class).getUser(player);
+        CachedPermissionData permissionData = user.getCachedData().getPermissionData();
+        List<String> list = GetListFromMap(permissionData.getPermissionMap());
+
+        for(String permission : list)
+            if(permission.equals(match))
+                return true;
+        return false;
     }
 
     private List<String> GetListFromMap(Map<String, Boolean> map)
