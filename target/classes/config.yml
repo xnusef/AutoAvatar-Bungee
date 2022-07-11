@@ -4,7 +4,7 @@
 enable-cycle: true
 delay: 5
 interval: 10
-player-amount: 3
+player-amount: 1
 avatar-duration: 7
 death-immunity: 1
 new-avatar-messages: 
@@ -14,3 +14,6 @@ new-avatar-messages:
   - ""
   - "&7Tiene &e{inmunity} días &7de &einmunidad."
   - "&8======================================="
+allowed-servers:
+  - Recursos
+  - Ciudades

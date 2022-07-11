@@ -3,7 +3,7 @@
     
     <!-- Project information -->
     <groupId>me.TEXAPlayer</groupId>
-    <artifactId>AutoAvatar</artifactId>
+    <artifactId>AutoAvatar-Bungee</artifactId>
     <packaging>jar</packaging>
 
     <!-- Plugin Information -->
@@ -40,6 +40,12 @@
             <artifactId>bungeecord-api</artifactId>
             <version>1.18-R0.1-SNAPSHOT</version>
             <type>javadoc</type>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.luckperms</groupId>
+            <artifactId>api</artifactId>
+            <version>5.4</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

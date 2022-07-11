@@ -1,17 +1,21 @@
 package me.TEXAPlayer.AutoAvatar;
 
-import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
+import net.md_5.bungee.api.connection.ProxiedPlayer;
 
 public class Timer
 {
-    Main main;
-    DateTimeFormatter formatter;
+    Main main = Main.GetInstance();
+    Methods methods;
+    List<ProxiedPlayer> playersInAllowedServers = new ArrayList<>();
+    //DateTimeFormatter formatter;
     
-    public Timer(Main plugin)
+    public Timer(/*Main plugin, */Methods m)
     {
-        main = plugin;
-        formatter =  DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");  
+        methods = m;
+        //formatter =  DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");  
     }
 
     public Runnable RepetitionCycle()
@@ -21,32 +25,15 @@ public class Timer
             @Override
             public void run()
             {
-                main.server.getLogger().info("Tiempo");
-                //CheckAvatarExpiration();
+                playersInAllowedServers = methods.GetPlayersInServers();
+                if (playersInAllowedServers.size() >= main.config.getInt("player-amount"))
+                {
+                    ProxiedPlayer chosenPlayer = methods.GetRandomPlayer(playersInAllowedServers);
+                    if (chosenPlayer != null)
+                        main.messaging.SendMessage(chosenPlayer, "autoavatar:newavatar");
+                        //main.server.getLogger().info(chosenPlayer.getName());
+                }
             }
         };
     }
-
-    /*private void CheckAvatarExpiration()
-    {
-        LocalDateTime now = LocalDateTime.now();
-        LocalDateTime end = LocalDateTime.parse(main.avatar.getString("end-date"), formatter); 
-        if (now.isAfter(end))
-        {
-            Player player = m.RandomPlayer();
-            if (!main.avatar.getString("avatar").equals(""))
-                m.RemoveAvatar();
-            if (Bukkit.getOnlinePlayers().size() >= main.config.getInt("player-amount") && 
-                main.avatar.getBoolean("choose-new") && player != null)
-                NewAvatar(player);
-        }
-    }
-
-    public void NewAvatar(Player player)
-    {
-        m.SetAvatarInfo(player);
-        m.GiveAllElements(BendingPlayer.getBendingPlayer(player));
-        m.AddToGroup(player, "avatar");
-        m.NewAvatarNotification(player);
-    }*/
 }

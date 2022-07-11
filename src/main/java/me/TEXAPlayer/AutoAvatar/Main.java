@@ -15,25 +15,33 @@ import net.md_5.bungee.config.YamlConfiguration;
 
 public class Main extends Plugin
 {
+
+    private static Main instance;
     private File configFile;
     public Configuration config;
 
     public Timer timer;
+    public Methods methods;
+    public Messaging messaging;
     public ProxyServer server;
 
     @Override
     public void onEnable() 
     {
-        server = getProxy();
-        timer = new Timer(this);
+        SetInstances();
         ManageFiles();
-        if (config.getBoolean("enable-cycle"))
-            server.getScheduler().schedule(
-                this,
-                timer.RepetitionCycle(),
-                config.getLong("delay"),
-                config.getLong("interval"),
-                TimeUnit.SECONDS);
+        EnableCycle();
+    }
+
+    public static Main GetInstance() { return instance; }
+
+    private void SetInstances()
+    {
+        Main.instance = this;
+        server = getProxy();
+        methods = new Methods(/*this*/);
+        timer = new Timer(/*this,*/ methods);
+        messaging = new Messaging(server);
     }
 
     private void ManageFiles()
@@ -67,14 +75,25 @@ public class Main extends Plugin
         }
     }
 
-    private void SaveConfig()
+    // private void SaveConfig()
+    // {
+    //     try 
+    //     {
+    //         ConfigurationProvider.getProvider(YamlConfiguration.class).save(config, new File(getDataFolder(), "config.yml"));
+    //     } catch (IOException e) 
+    //     {
+    //         e.printStackTrace();
+    //     }
+    // }
+
+    private void EnableCycle()
     {
-        try 
-        {
-            ConfigurationProvider.getProvider(YamlConfiguration.class).save(config, new File(getDataFolder(), "config.yml"));
-        } catch (IOException e) 
-        {
-            e.printStackTrace();
-        }
+        if (config.getBoolean("enable-cycle"))
+            server.getScheduler().schedule(
+                this,
+                timer.RepetitionCycle(),
+                config.getLong("delay"),
+                config.getLong("interval"),
+                TimeUnit.SECONDS);
     }
 }

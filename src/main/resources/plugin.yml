@@ -5,4 +5,3 @@ main: ${mainClass}
 version: ${version}
 url: ${url}
 api-version: 1.18
-depend: []
