@@ -39,8 +39,8 @@ public class Main extends Plugin
     {
         Main.instance = this;
         server = getProxy();
-        methods = new Methods(/*this*/);
-        timer = new Timer(/*this,*/ methods);
+        methods = new Methods();
+        timer = new Timer(methods);
         messaging = new Messaging(server);
     }
 

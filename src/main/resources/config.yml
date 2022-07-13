@@ -2,7 +2,7 @@
 #This file stores plugin configuration
 
 enable-cycle: true
-delay: 5
+delay: 10
 interval: 10
 player-amount: 1
 allowed-servers:

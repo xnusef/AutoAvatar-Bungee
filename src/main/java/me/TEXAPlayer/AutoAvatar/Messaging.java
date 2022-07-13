@@ -1,5 +1,7 @@
 package me.TEXAPlayer.AutoAvatar;
 
+import java.util.List;
+
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 
@@ -15,9 +17,11 @@ public class Messaging
         proxy.registerChannel( "autoavatar:newavatar" );
     }
 
-    public void SendMessage(ProxiedPlayer player, String channel)
+    public void SendMessage(ProxiedPlayer player, String channel, List<String> data)
     {
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
+        for (String info : data)
+            out.writeUTF(info);
         player.getServer().getInfo().sendData(channel, out.toByteArray());
     }
 
